@@ -209,10 +209,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
                 <!-- User Profile Link -->
                 <a href="{{ route('profil') }}" class="flex items-center space-x-2.5 p-1 rounded-xl hover:bg-slate-100 transition-colors text-left pl-2 border-l border-slate-200">
                     <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
@@ -224,10 +220,6 @@
                         <p class="text-[10px] text-slate-500">{{ $siswa->kelas ?? 'XI PPLG 1' }} • {{ $siswa->nis ?? '2026042' }}</p>
                     </div>
                 </a>
-<<<<<<< HEAD
-=======
-
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
             </div>
         </div>
     </header>
@@ -307,7 +299,6 @@
                             <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-bold">+40 Reward</span>
                         </a>
                     </nav>
-<<<<<<< HEAD
                     <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-6 mb-3 px-3">Akun Siswa</p>
 
                     <nav class="space-y-1.5">
@@ -319,17 +310,11 @@
                             </div>
                         </a>
                     </nav>
-=======
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
                 </div>
 
                 <!-- School Info Card with Logo PNG -->
                 <div class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-3xl p-5 text-white shadow-soft">
-<<<<<<< HEAD
                     <div class="bg-white rounded-2xl p-2.5 mb-3 flex items-center justify-center">
-=======
-                    <div class="bg-white rounded-2xl p-2.5 mb-3 flex items-center justify-center shadow-xs">
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
                         <img src="{{ asset('images/logo-smk.png') }}" alt="Logo SMK TI Bali Global Badung" class="h-12 w-auto object-contain">
                     </div>
 

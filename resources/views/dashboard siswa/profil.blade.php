@@ -3,52 +3,8 @@
 @section('title', 'Profil & Kedisiplinan Siswa')
 
 @section('content')
-<<<<<<< HEAD
-@php
-    $attendanceDbMap = [];
-
-    if (!empty($daftarPresensi)) {
-        foreach ($daftarPresensi as $p) {
-            $attendanceDbMap[\Carbon\Carbon::parse($p->tanggal)->format('Y-m-d')] = [
-                'status'     => $p->status,
-                'jam_masuk'  => $p->jam_masuk ? substr($p->jam_masuk, 0, 5) . ' WITA' : '07.10 WITA',
-                'jam_pulang' => $p->jam_pulang ? substr($p->jam_pulang, 0, 5) . ' WITA' : '12.25 WITA',
-                'keterangan' => $p->keterangan ?? 'Hadir Tepat Waktu'
-            ];
-        }
-    }
-@endphp
-
-<div class="w-full space-y-5" x-data="{
-    today: new Date(),
-    displayedYear: new Date().getFullYear(),
-    displayedMonth: new Date().getMonth(),
-    selectedDateKey: '',
-    selectedDayData: {
-        dateStr: '',
-        status: 'Hadir',
-        desc: 'Status: Hadir Hari Ini (07.10 WITA)',
-        badgeClass: 'bg-emerald-100 text-emerald-800',
-        dotClass: 'bg-emerald-500'
-    },
-    monthNames: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-    daysGrid: [],
-    dbRecords: {{ Js::from($attendanceDbMap) }},
-    rekapHadir: {{ ($totalHadir ?? 0) > 0 ? $totalHadir : (!empty($daftarPresensi) && count($daftarPresensi) > 0 ? count($daftarPresensi) : 14) }},
-    rekapIzin: {{ $totalIzin ?? 3 }},
-    rekapAlpha: 1,
-
-    get displayedMonthName() {
-        return this.monthNames[this.displayedMonth];
-    },
-
-    get currentMonthName() {
-        return this.monthNames[this.today.getMonth()];
-    },
-=======
 <div class="w-full space-y-6" x-data="{
     confirmLogout: false,
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
 
     getGreeting() {
         const hr = new Date().getHours();
@@ -58,9 +14,8 @@
         return 'Selamat Malam,';
     }
 }">
-
     <!-- ========================================================================= -->
-    <!-- 1. TOP HEADER HERO (Identical Across Dashboard Siswa Modules)              -->
+    <!-- 1. TOP HEADER HERO                                                        -->
     <!-- ========================================================================= -->
     <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 text-white rounded-3xl sm:rounded-[32px] p-5 sm:p-7 shadow-lg shadow-blue-500/15 relative overflow-hidden">
         <!-- Ambient decorative shapes -->
@@ -75,7 +30,7 @@
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </a>
 
-            <!-- Logo Resmi SMK TI Bali Global Badung (Sesuai Mockup Desain) -->
+            <!-- Logo Resmi SMK TI Bali Global Badung -->
             <div class="flex items-center space-x-2 shrink-0">
                 <img src="{{ asset('images/logo-smk.png') }}" alt="Logo SMK TI Bali Global Badung" class="h-7 sm:h-8 w-auto object-contain drop-shadow-sm">
                 <span class="font-extrabold text-[11px] sm:text-xs tracking-wider uppercase text-white drop-shadow-xs">SMK TI BALI GLOBAL BADUNG</span>
@@ -90,7 +45,7 @@
             </div>
         </div>
 
-        <!-- Middle Row: Greeting, Student Name, Red Pill Badge on Left; White Avatar on Right -->
+        <!-- Middle Row: Greeting, Student Name, Pill Badge on Left; Avatar on Right -->
         <div class="relative z-10 flex items-center justify-between pt-4 sm:pt-5">
             <div>
                 <p class="text-xs sm:text-sm text-blue-100 font-medium" x-text="getGreeting()">Selamat Pagi,</p>
@@ -99,7 +54,7 @@
                 </h1>
                 <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-700 font-extrabold text-[11px] sm:text-xs shadow-sm mt-2">
                     <span class="w-2 h-2 rounded-full bg-rose-600"></span>
-                    <span>Kelas {{ $siswa->kelas ?? 'XI PPLG 1' }} • NIS: {{ $siswa->nis ?? '2026042' }}</span>
+                    <span>Kelas {{ $siswa->kelas ?? 'XI PPLG 1' }} • NIS: {{ $siswa->nis ?? '102938' }}</span>
                 </div>
             </div>
 
@@ -114,7 +69,7 @@
     <!-- 2. QUICK STATS SUMMARY BANNER                                             -->
     <!-- ========================================================================= -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
-        <!-- Stat 1: Total Kehadiran (Dihitung dari Berapa Kali Hadir) -->
+        <!-- Stat 1: Total Kehadiran -->
         <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-soft flex items-center space-x-3.5">
             <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                 <i data-lucide="check-circle" class="w-6 h-6"></i>
@@ -184,7 +139,7 @@
 
                     <div class="p-3 bg-slate-50/80 rounded-2xl border border-slate-100">
                         <span class="text-slate-400 font-semibold block mb-0.5">Nomor Induk Siswa (NIS)</span>
-                        <span class="text-slate-900 font-bold text-sm font-mono">{{ $siswa->nis ?? '2026042' }}</span>
+                        <span class="text-slate-900 font-bold text-sm font-mono">{{ $siswa->nis ?? '102938' }}</span>
                     </div>
 
                     <div class="p-3 bg-slate-50/80 rounded-2xl border border-slate-100">
@@ -210,7 +165,7 @@
             </div>
 
             <!-- Card: Aturan Ketentuan Presensi Sekolah -->
-            <div class="bg-linear-to-br from-blue-900 to-indigo-900 text-white rounded-3xl p-6 shadow-soft relative overflow-hidden">
+            <div class="bg-gradient-to-br from-blue-900 to-indigo-900 text-white rounded-3xl p-6 shadow-soft relative overflow-hidden">
                 <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
 
                 <div class="relative z-10 flex items-center space-x-3 mb-4">
@@ -330,140 +285,7 @@
 
         </div>
 
-<<<<<<< HEAD
-        <!-- RIGHT COLUMN -->
-        <div class="lg:col-span-5 xl:col-span-4 space-y-5">
-
-            <!-- TABEL CATATAN PRESENSI -->
-            <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-soft space-y-4">
-
-                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-
-                    <div>
-                        <h4 class="font-extrabold text-sm text-slate-900">
-                            Log Presensi Terbaru
-                        </h4>
-
-                        <p class="text-[11px] text-slate-500">
-                            Histori kehadiran tercatat di sistem
-                        </p>
-                    </div>
-
-                    <a
-                        href="{{ route('presensi') }}"
-                        title="Buka Presensi Absen Datang & Pulang"
-                        class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] rounded-xl flex items-center space-x-1.5 transition-all shadow-xs active:scale-95 shrink-0"
-                    >
-                        <i data-lucide="scan-face" class="w-3.5 h-3.5"></i>
-                        <span>Absen Datang & Pulang</span>
-                    </a>
-
-                </div>
-
-                @if(!empty($daftarPresensi) && count($daftarPresensi) > 0)
-
-                    <div class="divide-y divide-slate-100 text-xs">
-
-                        @foreach(array_slice($daftarPresensi->toArray(), 0, 5) as $p)
-
-                            <div class="py-3 flex items-center justify-between">
-
-                                <div>
-                                    <p class="font-bold text-slate-900">
-                                        {{ \Carbon\Carbon::parse($p['tanggal'])->translatedFormat('d M Y') }}
-                                    </p>
-
-                                    <p class="text-[11px] text-slate-500 mt-0.5">
-                                        Masuk:
-                                        <span class="font-semibold text-slate-700">
-                                            {{ $p['jam_masuk'] ? substr($p['jam_masuk'], 0, 5) . ' WITA' : '-' }}
-                                        </span>
-                                    </p>
-                                </div>
-
-                                <div>
-
-                                    @if($p['status'] === 'Hadir')
-
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">
-                                            Hadir
-                                        </span>
-
-                                    @elseif($p['status'] === 'Terlambat')
-
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-100 text-amber-800">
-                                            Terlambat
-                                        </span>
-
-                                    @else
-
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-100 text-rose-800">
-                                            {{ $p['status'] }}
-                                        </span>
-
-                                    @endif
-
-                                </div>
-
-                            </div>
-
-                        @endforeach
-
-                    </div>
-
-                @else
-
-                    <div class="space-y-2 text-xs">
-
-                        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-slate-900">8 Oktober 2026</p>
-                                <p class="text-[11px] text-slate-500">Masuk: 07.10 WITA</p>
-                            </div>
-
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">
-                                Hadir
-                            </span>
-                        </div>
-
-                        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-slate-900">7 Oktober 2026</p>
-                                <p class="text-[11px] text-slate-500">Masuk: 07.05 WITA</p>
-                            </div>
-
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">
-                                Hadir
-                            </span>
-                        </div>
-
-                        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-slate-900">6 Oktober 2026</p>
-                                <p class="text-[11px] text-slate-500">Masuk: 07.12 WITA</p>
-                            </div>
-
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">
-                                Hadir
-                            </span>
-                        </div>
-
-                    </div>
-
-                @endif
-
-                <div class="pt-2">
-                    <a
-                        href="{{ route('izin') }}"
-                        class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all"
-                    >
-                        <i data-lucide="file-plus" class="w-4 h-4 text-blue-600"></i>
-                        <span>Ajukan Surat Izin / Sakit</span>
-                    </a>
-                </div>
-=======
     </div>
->>>>>>> 584adb617241ef62656c05c70435b049b1a2a23c
 
     <!-- ========================================================================= -->
     <!-- 4. MODAL KONFIRMASI LOGOUT                                                -->
@@ -486,7 +308,7 @@
             <div class="grid grid-cols-2 gap-3">
                 <button @click="confirmLogout = false" 
                         type="button" 
-                        class="w-full py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors">
+                        class="w-full py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer">
                     Batal
                 </button>
                 <a href="{{ route('logout') }}" 
