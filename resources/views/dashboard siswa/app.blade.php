@@ -331,6 +331,18 @@
 
             <!-- MAIN CONTENT AREA -->
             <main class="lg:col-span-9 w-full">
+                @if(session('success'))
+                    <div class="mb-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center space-x-3 text-xs sm:text-sm font-bold shadow-xs">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                @endif
+                @if(session('error'))
+                    <div class="mb-5 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center space-x-3 text-xs sm:text-sm font-bold shadow-xs">
+                        <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600 shrink-0"></i>
+                        <span>{{ session('error') }}</span>
+                    </div>
+                @endif
                 @yield('content')
             </main>
 

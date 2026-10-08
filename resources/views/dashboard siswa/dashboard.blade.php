@@ -27,21 +27,15 @@
     },
 
     init() {
-        const saved = localStorage.getItem('presensi_status_today');
-        if (saved === 'telat' || saved === 'tepat' || saved === 'belum') {
-            this.statusAbsen = saved;
-        }
-    },
-
-    toggleStatus() {
         if (this.statusAbsen === 'belum') {
-            this.statusAbsen = 'tepat';
-        } else if (this.statusAbsen === 'tepat') {
-            this.statusAbsen = 'telat';
-        } else {
-            this.statusAbsen = 'belum';
+            const savedJam = localStorage.getItem('presensi_jam_today');
+            const saved = localStorage.getItem('presensi_status_today');
+            if (savedJam && (saved === 'telat' || saved === 'tepat')) {
+                this.statusAbsen = saved;
+            } else {
+                localStorage.removeItem('presensi_status_today');
+            }
         }
-        localStorage.setItem('presensi_status_today', this.statusAbsen);
     },
 
     getGreeting() {
@@ -76,18 +70,16 @@
 
         <div class="relative z-10">
             <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight" x-text="getGreeting()">Selamat Pagi,</h1>
-            <p class="text-2xl sm:text-3xl font-extrabold text-blue-100 mt-0.5">Nama Siswa (Wahyu Pratama)</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-blue-100 mt-0.5">{{ $siswa->nama ?? 'Nama Siswa (Wahyu Pratama)' }}</p>
             
             <div class="flex flex-wrap items-center gap-2 mt-4">
-                <!-- Status Absen Pill (Clickable & Real-Time Sync) -->
-                <button @click="toggleStatus()" 
-                        title="Status Presensi: Klik untuk tes simulasi status"
-                        class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-bold transition-all backdrop-blur-md shadow-xs cursor-pointer active:scale-95"
-                        :class="{
-                            'bg-rose-500/95 text-white hover:bg-rose-600': statusAbsen === 'belum',
-                            'bg-emerald-500/95 text-white hover:bg-emerald-600': statusAbsen === 'tepat',
-                            'bg-amber-500/95 text-white hover:bg-amber-600': statusAbsen === 'telat'
-                        }">
+                <!-- Status Absen Pill (Indikator Resmi - Tidak Bisa Dipencet/Dimanipulasi) -->
+                <div class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-bold backdrop-blur-md shadow-xs select-none cursor-default"
+                     :class="{
+                         'bg-rose-500/95 text-white': statusAbsen === 'belum',
+                         'bg-emerald-500/95 text-white': statusAbsen === 'tepat',
+                         'bg-amber-500/95 text-white': statusAbsen === 'telat'
+                     }">
                     <span class="w-2 h-2 rounded-full mr-1.5" 
                           :class="{
                               'bg-white animate-pulse': statusAbsen === 'belum',
@@ -97,7 +89,7 @@
                     <span x-text="statusAbsen === 'belum' ? 'Belum Absen' : (statusAbsen === 'tepat' ? 'Sudah Absen (Tepat)' : 'Sudah Absen (Telat)')">
                         Belum Absen
                     </span>
-                </button>
+                </div>
 
                 <!-- Live Time Pill (Mengikuti Jam Sekarang) -->
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white backdrop-blur-md">
@@ -107,7 +99,7 @@
 
                 <!-- Class Pill -->
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white backdrop-blur-md">
-                    Kelas XI PPLG 1
+                    Kelas {{ $siswa->kelas ?? 'XI PPLG 1' }}
                 </span>
             </div>
         </div>
