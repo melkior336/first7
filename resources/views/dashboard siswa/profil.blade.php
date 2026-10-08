@@ -33,7 +33,7 @@
     monthNames: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
     daysGrid: [],
     dbRecords: {{ Js::from($attendanceDbMap) }},
-    rekapHadir: {{ ($totalHadir ?? 0) > 0 ? $totalHadir : (count($daftarPresensi) > 0 ? count($daftarPresensi) : 14) }},
+    rekapHadir: {{ ($totalHadir ?? 0) > 0 ? $totalHadir : (!empty($daftarPresensi) && count($daftarPresensi) > 0 ? count($daftarPresensi) : 14) }},
     rekapIzin: {{ $totalIzin ?? 3 }},
     rekapAlpha: 1,
 
@@ -737,7 +737,7 @@
 
                 </div>
 
-                @if(count($daftarPresensi) > 0)
+                @if(!empty($daftarPresensi) && count($daftarPresensi) > 0)
 
                     <div class="divide-y divide-slate-100 text-xs">
 

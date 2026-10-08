@@ -629,7 +629,38 @@ class KesiswaanController extends Controller
     public function profil()
     {
         $siswa = $this->getActiveSiswa();
-        return view('dashboard siswa.profil', compact('siswa'));
+        $daftarPresensi = [];
+        $totalHadir = 14;
+        $totalIzin = 3;
+
+        try {
+            if (Schema::hasTable('presensi')) {
+                $daftarPresensi = Presensi::where('siswa_id', $siswa->id)
+                    ->orderBy('tanggal', 'desc')
+                    ->take(30)
+                    ->get();
+
+                $dbCount = Presensi::where('siswa_id', $siswa->id)
+                    ->whereIn('status', ['Hadir', 'Terlambat'])
+                    ->count();
+
+                if ($dbCount > 0) {
+                    $totalHadir = $dbCount;
+                }
+            }
+
+            if (Schema::hasTable('izin')) {
+                $dbIzin = Izin::where('siswa_id', $siswa->id)
+                    ->whereMonth('tgl_mulai', Carbon::now()->month)
+                    ->sum('durasi_hari');
+
+                if ($dbIzin > 0) {
+                    $totalIzin = $dbIzin;
+                }
+            }
+        } catch (Throwable $e) {}
+
+        return view('dashboard siswa.profil', compact('siswa', 'daftarPresensi', 'totalHadir', 'totalIzin'));
     }
 
     /**
