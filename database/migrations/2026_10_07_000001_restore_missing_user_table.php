@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        if (Schema::hasTable('user')) {
+            return;
+        }
+
+        Schema::create('user', function (Blueprint $table): void {
+            $table->id('id_user');
+            $table->string('username', 50)->unique();
+            $table->string('nama', 100);
+            $table->string('email', 100)->unique();
+            $table->string('password');
+            $table->enum('role', ['admin', 'guru', 'siswa', 'guru_bk'])->default('siswa');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        // Preserve the restored account table and any data added after migration.
+    }
+};
