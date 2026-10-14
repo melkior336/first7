@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('guru')) {
+            return;
+        }
+
         Schema::create('guru', function (Blueprint $table) {
             $table->id('id_guru');
-            $table->foreignId('id_user')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('id_user')->nullable()->constrained('user', 'id_user')->nullOnDelete();
             $table->string('nomor_guru', 6)->unique()->comment('Tepat 6 digit angka saja');
             $table->string('nama_guru', 100);
             $table->enum('jenis_kelamin', ['L', 'P']);

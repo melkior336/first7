@@ -15,6 +15,15 @@ return new class extends Migration
             return;
         }
 
+        if (Schema::hasTable('users')) {
+            DB::statement('RENAME TABLE users TO user');
+            DB::statement('ALTER TABLE user DROP PRIMARY KEY');
+            DB::statement('ALTER TABLE user CHANGE id id_user BIGINT UNSIGNED NOT NULL AUTO_INCREMENT');
+            DB::statement('ALTER TABLE user ADD PRIMARY KEY (id_user)');
+
+            return;
+        }
+
         Schema::create('user', function (Blueprint $table): void {
             $table->id('id_user');
             $table->string('username', 50)->unique();

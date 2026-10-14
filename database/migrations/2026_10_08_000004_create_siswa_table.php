@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('siswa')) {
+            return;
+        }
+
         Schema::create('siswa', function (Blueprint $table) {
             $table->id('id_siswa');
-            $table->foreignId('id_user')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('id_user')->nullable()->constrained('user', 'id_user')->nullOnDelete();
             $table->string('nomor_siswa', 7)->unique()->comment('Tepat 7 digit angka saja');
             $table->string('nama_siswa', 100);
             $table->foreignId('id_kelas')->constrained('kelas', 'id_kelas')->cascadeOnDelete();
